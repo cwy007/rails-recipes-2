@@ -5,7 +5,7 @@ class Admin::EventsController < AdminController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.find_by_friendly_id!(params[:id])
   end
 
   def new
@@ -23,7 +23,7 @@ class Admin::EventsController < AdminController
   end
 
   def edit
-    @event = Event.find(params[:id])
+    @event = Event.find_by_friendly_id!(params[:id])
   end
 
   def update
@@ -37,7 +37,7 @@ class Admin::EventsController < AdminController
   end
 
   def destroy
-    @event = Event.find(params[:id])
+    @event = Event.find_by_friendly_id!(params[:id])
     @event.destroy
 
     redirect_to admin_events_path
