@@ -13,7 +13,7 @@ gem 'bootstrap-sass'
 
 gem 'devise'
 
-gem 'rails-erd'
+
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -50,6 +50,11 @@ end
 
 group :development do
   gem 'faker'  #产生假的数据
+  
+  gem 'rails-erd'
+
+  gem 'annotate'
+
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
