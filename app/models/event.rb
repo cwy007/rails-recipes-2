@@ -17,7 +17,10 @@
 
 class Event < ApplicationRecord
 
-  validates_presence_of :name
+  validates_presence_of :name, :friendly_id
+
+  validates_uniqueness_of :friendly_id
+  validates_format_of :friendly_id, :with => /\A[a-z0-9\-]+\z/
 
   #  massage attributes before they're validated (by overwriting before_validation)--Active Record Callbacks
   before_validation :generate_friendly_id, :on => :create

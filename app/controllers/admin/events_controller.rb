@@ -27,7 +27,7 @@ class Admin::EventsController < AdminController
   end
 
   def update
-    @event = Event.find(params[:id])
+    @event = Event.find_by_friendly_id(params[:id])
 
     if @event.update(event_params)
       redirect_to admin_events_path
@@ -46,7 +46,7 @@ class Admin::EventsController < AdminController
   protected
 
   def event_params
-    params.require(:event).permit(:name, :description)
+    params.require(:event).permit(:name, :description, :friendly_id)
   end
 
 end
