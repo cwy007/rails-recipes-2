@@ -9,6 +9,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  friendly_id :string
+#  status      :string           default("draft")
 #
 # Indexes
 #

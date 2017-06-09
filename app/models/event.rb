@@ -9,6 +9,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  friendly_id :string
+#  status      :string           default("draft")
 #
 # Indexes
 #
@@ -30,6 +31,9 @@ class Event < ApplicationRecord
     self.friendly_id
   end
 
+  STATUS = ["draft", "public", "private"]
+  validates_inclusion_of :status, :in => STATUS
+  
   protected
 
   def generate_friendly_id
