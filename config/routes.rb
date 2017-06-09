@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   root "events#index"
 
   get "/faq" => "pages#faq"
+
+  resource :user 
 end
