@@ -10,9 +10,11 @@
 #  updated_at  :datetime         not null
 #  friendly_id :string
 #  status      :string           default("draft")
+#  category_id :integer
 #
 # Indexes
 #
+#  index_events_on_category_id  (category_id)
 #  index_events_on_friendly_id  (friendly_id) UNIQUE
 #
 

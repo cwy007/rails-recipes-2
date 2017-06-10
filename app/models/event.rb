@@ -10,14 +10,17 @@
 #  updated_at  :datetime         not null
 #  friendly_id :string
 #  status      :string           default("draft")
+#  category_id :integer
 #
 # Indexes
 #
+#  index_events_on_category_id  (category_id)
 #  index_events_on_friendly_id  (friendly_id) UNIQUE
 #
 
 class Event < ApplicationRecord
-
+  belongs_to :category, :optional => true
+  
   validates_presence_of :name, :friendly_id
 
   validates_uniqueness_of :friendly_id
@@ -33,7 +36,7 @@ class Event < ApplicationRecord
 
   STATUS = ["draft", "public", "private"]
   validates_inclusion_of :status, :in => STATUS
-  
+
   protected
 
   def generate_friendly_id
