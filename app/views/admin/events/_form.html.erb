@@ -26,12 +26,14 @@
   <%= f.select :status, Event::STATUS.map{ |s| [t(s, :scope => "event.status"), s] }, {}, :class => "form-control" %>
 </div> -->
 
-<% Event::STATUS.each do |status| %>
-  <label>
+<div class="btn-group" data-toggle="buttons">
+  <% Event::STATUS.each do |status| %>
+  <label class="btn btn-default <%= (status == f.object.status)? 'active' : '' %>">
     <%= f.radio_button :status, status %>
     <%= t(status, :scope => "event.status") %>
   </label>
-<% end %>
+  <% end %>
+</div>
 
 <div class="form-group">
   <%= f.label :description %>
