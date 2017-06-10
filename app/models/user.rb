@@ -33,4 +33,6 @@ class User < ApplicationRecord
     self.email.split("@").first
   end
 
+  has_many :memberships
+  has_many :groups, :through => :memberships
 end
