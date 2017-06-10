@@ -9,10 +9,10 @@
   </tr>
   <% @events.each do |event| %>
   <tr>
-    <td><%= event.friend_id %></td>
+    <td><%= event.friendly_id %></td>
     <td><%= link_to( event.name, event_path(event) ) %></td>
     <td><%= event.status %></td>
-    <td><%= event.cteated_at.to_s %></td>
+    <td><%= event.created_at.to_s %></td>
   </tr>
   <% end %>
 </table>

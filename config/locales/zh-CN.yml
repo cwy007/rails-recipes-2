@@ -8,3 +8,5 @@
   event_list: 活动列表
   admin:
     event_list: 活动列表管理
+    category_list: 类别列表管理
+    language: 中文
