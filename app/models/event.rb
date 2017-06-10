@@ -20,7 +20,7 @@
 
 class Event < ApplicationRecord
   belongs_to :category, :optional => true
-  
+
   validates_presence_of :name, :friendly_id
 
   validates_uniqueness_of :friendly_id
@@ -28,6 +28,8 @@ class Event < ApplicationRecord
 
   #  massage attributes before they're validated (by overwriting before_validation)--Active Record Callbacks
   before_validation :generate_friendly_id, :on => :create
+
+  has_many :tickets, :dependent => :destroy
 
   def to_param
     # "#{self.id}-#{self.name}"
