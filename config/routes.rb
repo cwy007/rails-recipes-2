@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       resources :tickets, :controller => "event_tickets"
 
       collection do
-        post :bulk_update 
+        post :bulk_update
+      end
+
+      member do
+        post :reorder
       end
     end
     resources :categories
