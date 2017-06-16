@@ -11,11 +11,13 @@
 #  friendly_id :string
 #  status      :string           default("draft")
 #  category_id :integer
+#  row_order   :integer
 #
 # Indexes
 #
 #  index_events_on_category_id  (category_id)
 #  index_events_on_friendly_id  (friendly_id) UNIQUE
+#  index_events_on_row_order    (row_order)
 #
 
 require 'rails_helper'
