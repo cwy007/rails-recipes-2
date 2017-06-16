@@ -9,12 +9,14 @@
     <tr>
       <th><%= check_box_tag "全选", "1", false, :id => "toggle_all" %></th>
       <th>Event Name</th>
+      <th>Status</th>
       <th>Actions</th>
     </tr>
     <% @events.each do |event| %>
     <tr>
       <td><%= check_box_tag "ids[]", event.id %></td>
       <td><%= link_to event.name, admin_event_path(event) %></td>
+      <td><%= t(event.status, :scope => "event.status") %></td>
       <td>
         <%=  link_to "Tickets", admin_event_tickets_path(event), :class => "btn btn-default" %>
         <%= link_to "Edit", edit_admin_event_path(event), :class => "btn btn-default" %>
@@ -23,7 +25,10 @@
     <% end %>
   </table>
 
-  <p><%= submit_tag "批次删除", :class => "btn btn-danger", :data => { :confirm => "Are you sure?" } %></p>
+  <%= select_tag :event_status, options_for_select(Event::STATUS.map{ |s| [t(s, :scope => "event.status"), s] }), :class => "form-control" %>
+
+  <%= submit_tag t(:bulk_update), :class => "btn btn-primary", :data => { :disable_with => "批次编辑" }%>
+  <%= submit_tag t(:bulk_delete), :class => "btn btn-danger", :data => { :disable_with => "批次删除" } %>
 <% end %>
 
 <script>
