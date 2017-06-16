@@ -6,28 +6,33 @@
 
 <%= form_tag bulk_update_admin_events_path, :class => "form-inline" do %>
   <table class="table">
-    <tr>
-      <th><%= check_box_tag "全选", "1", false, :id => "toggle_all" %></th>
-      <th>Event Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    <% @events.each do |event| %>
-    <tr>
-      <td><%= check_box_tag "ids[]", event.id %></td>
-      <td><%= link_to event.name, admin_event_path(event) %></td>
-      <td><%= t(event.status, :scope => "event.status") %></td>
-      <td>
-        <%= link_to "上移", reorder_admin_event_path(event, :position => :up), :method => :post, :class => "btn btn-default" %>
-        <%= link_to "下移", reorder_admin_event_path(event, :position => :down), :method => :post, :class => "btn btn-default" %>
-        <%= link_to "置顶", reorder_admin_event_path(event, :position => :first), :method => :post, :class => "btn btn-default" %>
-        <%= link_to "置底", reorder_admin_event_path(event, :position => :last), :method => :post, :class => "btn btn-default" %>
-
-        <%=  link_to "Tickets", admin_event_tickets_path(event), :class => "btn btn-default" %>
-        <%= link_to "Edit", edit_admin_event_path(event), :class => "btn btn-default" %>
-        <%= link_to "Delete", admin_event_path(event), :method => "delete", :data => { :confirm => "Are you sure?" }, :class => "btn btn-danger" %>
+    <thead>
+      <tr>
+        <th><%= check_box_tag "全选", "1", false, :id => "toggle_all" %></th>
+        <th>Event Name</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody class="sortable">
+      <% @events.each do |event| %>
+      <tr data-reorder-url="<%= reorder_admin_event_path(event) %>">
+        <td><%= check_box_tag "ids[]", event.id %></td>
+        <td>
+          <span class="sortable-icon">☰</span>
+          <%= link_to event.name, admin_event_path(event) %>
+        </td>
+        <td><%= t(event.status, :scope => "event.status") %></td>
+        <td>
+          <%= link_to "置顶", reorder_admin_event_path(event, :position => :first), :method => :post, :class => "btn btn-default" %>
+          <%= link_to "置底", reorder_admin_event_path(event, :position => :last), :method => :post, :class => "btn btn-default" %>
+
+          <%=  link_to "Tickets", admin_event_tickets_path(event), :class => "btn btn-default" %>
+          <%= link_to "Edit", edit_admin_event_path(event), :class => "btn btn-default" %>
+          <%= link_to "Delete", admin_event_path(event), :method => "delete", :data => { :confirm => "Are you sure?" }, :class => "btn btn-danger" %>
+        </tr>
+        <% end %>
+    </tbody>
   </table>
 
   <%= select_tag :event_status, options_for_select(Event::STATUS.map{ |s| [t(s, :scope => "event.status"), s] }), :class => "form-control" %>
@@ -37,6 +42,7 @@
 <% end %>
 
 <script>
+// ============全选==========
   $("#toggle_all").click(function(){
     if ( $(this).prop("checked") ) {
       $("input[ name='ids[]' ]").prop("checked", true);
@@ -44,4 +50,25 @@
       $("input[name='ids[]']").prop("checked", false);
     }
   })
+
+// ================排序===================
+  $(".sortable").sortable({
+    axis: "y",
+    items: "tr",
+    cursor: "move",
+    handle: ".sortable-icon",
+    stop: function(e, ui){
+      ui.item.children("td").effect("highlight", {}, 1000)
+    },
+    update: function(e, ui) {
+      reorder_url = ui.item.data("reorder-url")
+      position = ui.item.index()
+      $.ajax({
+        type: "POST",
+        url: reorder_url,
+        datatype: "json",
+        data: { position: position }
+      })
+    }
+  });
 </script>
