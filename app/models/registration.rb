@@ -31,8 +31,8 @@ class Registration < ApplicationRecord
   validates_presence_of :status, :ticket_id
 
   belongs_to :event
-  belongs_to :ticket
-  belongs_to :user, :optional => true
+  belongs_to :ticket                    #新建registration时，ticket一定要存在，不然会报错
+  belongs_to :user, :optional => true   # :optional => true 可以获得，新建registration时，即使没有user时，也不会报错, 也能新建成功；
 
   before_validation :generate_uuid, :on => :create
 
@@ -45,5 +45,5 @@ class Registration < ApplicationRecord
   def generate_uuid
     self.uuid = SecureRandom.uuid
   end
-  
+
 end
