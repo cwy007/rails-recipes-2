@@ -29,6 +29,8 @@ gem 'ranked-model'
 
 gem 'jquery-ui-rails'
 
+gem 'kaminari' #分页
+
 
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
