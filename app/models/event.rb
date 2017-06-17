@@ -23,7 +23,7 @@
 class Event < ApplicationRecord
   include RankedModel
   ranks :row_order
-  
+
   belongs_to :category, :optional => true
 
   validates_presence_of :name, :friendly_id
@@ -44,6 +44,8 @@ class Event < ApplicationRecord
 
   STATUS = ["draft", "public", "private"]
   validates_inclusion_of :status, :in => STATUS
+
+  has_many :registrations, :dependent => :destroy 
 
   protected
 
