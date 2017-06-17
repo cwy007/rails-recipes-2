@@ -5,6 +5,8 @@
 <dl>
   <dt>状态</dt>
   <dd><%= t(@registration.status, :scope => "registration.status") %></dd>
+  <dt>活动票名</dt>
+  <dd><%= @registration.ticket.name %></dd>
   <dt>姓名</dt>
   <dd><%= @registration.name %></dd>
   <dt>E-mail</dt>
@@ -17,4 +19,4 @@
   <dd><%= simple_format @registration.bio %></dd>
 </dl>
 
-<p><%= link_to "Edit", step1_event_registration_path(@event, @registration), :class => "btn btn-primary" %></p>
+<p><%= link_to "Edit", edit_event_registration_path(@event, @registration), :class => "btn btn-primary" %></p>

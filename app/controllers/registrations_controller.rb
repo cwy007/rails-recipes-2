@@ -22,6 +22,21 @@ class RegistrationsController < ApplicationController
     @registration = @event.registrations.find_by_uuid(params[:id])
   end
 
+  def edit
+    @registration = @event.registrations.find_by_uuid(params[:id])
+  end
+
+  def update
+    @registration = @event.registrations.find_by_uuid(params[:id])
+
+    if @registration.update(registration_params)
+      flash[:notice] = "registration info 修改成功"
+      redirect_to event_registration_path(@event, @registration)
+    else
+      render "edit"
+    end
+  end 
+
   def step1
     @registration = @event.registrations.find_by_uuid(params[:id])
   end
