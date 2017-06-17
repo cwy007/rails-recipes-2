@@ -2,8 +2,18 @@ class Admin::EventRegistrationsController < AdminController
 
   before_action :find_event
 
+  #逐层过滤
   def index
     @registrations = @event.registrations.includes(:ticket).order("id DESC").page(params[:page])
+
+    if params[:status].present? && Registration::STATUS.include?(params[:status])
+      @registrations = @registrations.by_status(params[:status])
+    end
+
+    if params[:ticket_id].present?
+      @registrations = @registrations.by_ticket(params[:ticket_id])
+    end
+
   end
 
   def new

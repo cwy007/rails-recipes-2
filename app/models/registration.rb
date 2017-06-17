@@ -44,6 +44,9 @@ class Registration < ApplicationRecord
     self.uuid
   end
 
+  scope :by_status, ->(s){ where( :status => s )}
+  scope :by_ticket, ->(t){ where( :ticket_id => t )}
+
   protected
 
   def generate_uuid
@@ -55,7 +58,7 @@ class Registration < ApplicationRecord
   end
 
   def should_validate_all_data?
-    current_step == 3 || status == "confirmed" 
+    current_step == 3 || status == "confirmed"
   end
 
 end
