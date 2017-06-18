@@ -12,6 +12,7 @@
 #  status      :string           default("draft")
 #  category_id :integer
 #  row_order   :integer
+#  logo        :string
 #
 # Indexes
 #

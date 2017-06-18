@@ -12,6 +12,7 @@
 #  status      :string           default("draft")
 #  category_id :integer
 #  row_order   :integer
+#  logo        :string
 #
 # Indexes
 #
@@ -21,6 +22,8 @@
 #
 
 class Event < ApplicationRecord
+  mount_uploader :logo, EventLogoUploader
+  
   include RankedModel
   ranks :row_order
 
@@ -49,7 +52,7 @@ class Event < ApplicationRecord
 
   scope :only_public, -> { where( :status => "public" )}
   scope :only_available, -> { where( :status => ["public", "pqivate"] ) }
-  
+
   protected
 
   def generate_friendly_id

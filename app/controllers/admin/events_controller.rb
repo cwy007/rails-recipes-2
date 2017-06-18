@@ -72,13 +72,13 @@ class Admin::EventsController < AdminController
     respond_to do |format|
       format.html { redirect_to admin_events_path }
       format.json { render :json => { :message => "ok" }}
-    end 
+    end
   end
 
   protected
 
   def event_params
-    params.require(:event).permit(:name, :description, :friendly_id, :status, :category_id,
+    params.require(:event).permit(:name, :logo, :description, :friendly_id, :status, :category_id,
                   :tickets_attributes => [:id, :name, :description, :price, :_destroy] )
   end
 
