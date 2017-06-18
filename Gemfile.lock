@@ -64,6 +64,7 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-i18n (0.2.0)
     choice (0.2.0)
     ckeditor (4.2.3)
       cocaine
@@ -282,6 +283,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   carrierwave
+  carrierwave-i18n
   ckeditor
   coffee-rails (~> 4.2)
   devise
