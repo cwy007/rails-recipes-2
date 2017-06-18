@@ -4,7 +4,9 @@ class Admin::EventRegistrationsController < AdminController
 
   #逐层过滤
   def index
-    @registrations = @event.registrations.includes(:ticket).order("id DESC").page(params[:page])
+    @q = @event.registrations.ransack(params[:q])
+    
+    @registrations = @q.result.includes(:ticket).order("id DESC").page(params[:page])
 
     if params[:registration_id].present?
       @registrations = @registrations.where(:id => params[:registration_id].split(",") )
