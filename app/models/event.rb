@@ -45,8 +45,11 @@ class Event < ApplicationRecord
   STATUS = ["draft", "public", "private"]
   validates_inclusion_of :status, :in => STATUS
 
-  has_many :registrations, :dependent => :destroy 
+  has_many :registrations, :dependent => :destroy
 
+  scope :only_public, -> { where( :status => "public" )}
+  scope :only_available, -> { where( :status => ["public", "pqivate"] ) }
+  
   protected
 
   def generate_friendly_id
