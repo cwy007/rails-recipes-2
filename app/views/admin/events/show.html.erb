@@ -9,4 +9,25 @@
   <%= link_to "打開前台", event_path(@event), :target => "_blank", :class => "btn btn-primary" %>
 </p>
 
+
+<canvas id="myChart1" width="400" height="200"></canvas>
+<script>
+  var ctx1 = document.getElementById("myChart1");
+  var myChart1 = new Chart(ctx1, {
+    type: 'bar',
+    data: <%= raw @data1.to_json %>,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+</script>
+
+<hr>
+
 <%= sanitize @event.description %>
