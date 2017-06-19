@@ -73,7 +73,7 @@
     <div class="form-group">
       <%= ff.label :attachment %>
       <%= ff.file_field :attachment, :class => "form-control" %>
-      
+
       <% if ff.object.attachment.present? %>
         已上传档案 <%= link_to ff.object.description, ff.object.attachment.url, :target => "_blank" %>
       <% end %>
