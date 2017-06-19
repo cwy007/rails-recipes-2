@@ -9,6 +9,7 @@
   <%= link_to "打開前台", event_path(@event), :target => "_blank", :class => "btn btn-primary" %>
 </p>
 
+<%= sanitize @event.description %>
 
 <canvas id="myChart1" width="400" height="200"></canvas>
 <script>
@@ -67,4 +68,21 @@
   });
 </script>
 
-<%= sanitize @event.description %>
+<hr>
+<canvas id="myChart4" width="400" height="200"></canvas>
+<script>
+  var ctx1 = document.getElementById("myChart4");
+  var myChart1 = new Chart(ctx1, {
+    type: 'line',
+    data: <%= raw @data4.to_json %>,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+</script>
