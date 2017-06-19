@@ -36,6 +36,24 @@ class Admin::EventsController < AdminController
         borderWidth: 1
         }]
     }
+
+    status_colors = {
+      "confirmed" => "#FF6384",
+      "pending" => "#36A2EB"
+    }
+
+    @data3 = {
+      labels: ticket_names,
+      datasets: Registration::STATUS.map do |s|
+        {
+          label: I18n.t(s, :scope => "registration.status"),
+          data: @event.tickets.map{ |t| t.registrations.by_status(s).count },
+          backgroundColor: status_colors[s],
+          borderWidth: 1
+        }
+      end
+    }
+    
   end
 
   def new
